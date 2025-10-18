@@ -2,6 +2,12 @@
 
 A news aggregation and analysis tool that fetches the latest news on any topic and generates beautiful, interactive web pages with AI-powered summaries and high-resolution images.
 
+## Live Demo
+
+**🌐 [View Latest AI News](https://roberto-delfiore.github.io/news_agent/)**
+
+Automatically generated daily at 8:00 AM UTC with the latest artificial intelligence news.
+
 ## Project Structure
 
 ```
