@@ -47,6 +47,15 @@ jobs:
             --articles 10 \
             --output docs/index.html
 
+      - name: Copy images to docs
+        run: |
+          if [ -d "news_images" ]; then
+            cp -r news_images docs/
+            echo "✅ Copied news_images to docs/"
+          else
+            echo "⚠️ No news_images directory found"
+          fi
+
       - name: Copy latest news to archive
         run: |
           TIMESTAMP=$(date +%Y%m%d_%H%M%S)
