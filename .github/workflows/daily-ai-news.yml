@@ -33,7 +33,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Create docs directory
-        run: mkdir -p docs
+        run: |
+          mkdir -p docs
+          touch docs/.nojekyll
 
       - name: Generate AI news page
         env:
