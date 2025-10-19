@@ -4,7 +4,7 @@ A news aggregation and analysis tool that fetches the latest news on any topic a
 
 ## Live Demo
 
-**🌐 [View Latest AI News](https://roberto-delfiore.github.io/news_agent/)**
+**🌐 [View Latest AI News](https://roberto-delfiore.github.io/news-agent/)**
 
 Automatically generated daily with the latest artificial intelligence news.
 
@@ -49,8 +49,8 @@ news_agent/
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/roberto-delfiore/news_agent.git
-cd news_agent
+git clone https://github.com/roberto-delfiore/news-agent.git
+cd news-agent
 ```
 
 ### 2. Create a Virtual Environment

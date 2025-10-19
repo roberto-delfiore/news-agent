@@ -38,7 +38,7 @@ To publish the generated news pages:
 3. Save the settings
 
 Your news page will be available at:
-`https://roberto-delfiore.github.io/news_agent/`
+`https://roberto-delfiore.github.io/news-agent/`
 
 ## Workflow Schedule
 
