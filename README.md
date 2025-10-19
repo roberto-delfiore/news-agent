@@ -6,7 +6,7 @@ A news aggregation and analysis tool that fetches the latest news on any topic a
 
 **🌐 [View Latest AI News](https://roberto-delfiore.github.io/news_agent/)**
 
-Automatically generated daily at 8:00 AM UTC with the latest artificial intelligence news.
+Automatically generated daily with the latest artificial intelligence news.
 
 ## Project Structure
 

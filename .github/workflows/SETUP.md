@@ -43,7 +43,7 @@ Your news page will be available at:
 ## Workflow Schedule
 
 The workflow runs:
-- **Automatically**: Daily at 8:00 AM UTC
+- **Automatically**: Daily at 6:00 AM UTC
 - **Manually**: Click **Actions** → **Daily AI News Generator** → **Run workflow**
 
 ## What the Workflow Does
@@ -70,7 +70,7 @@ python news_agent.py "your topic here" \
 To change the schedule, modify the cron expression:
 ```yaml
 # Examples:
-- cron: '0 8 * * *'   # Daily at 8 AM UTC
+- cron: '0 6 * * *'   # Daily at 6 AM UTC
 - cron: '0 */6 * * *' # Every 6 hours
 - cron: '0 12 * * 1'  # Every Monday at noon UTC
 ```
