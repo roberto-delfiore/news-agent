@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest News: artificial intelligence</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .summary h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+        }
+        .summary h2::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .summary h3 {
+            color: #2980b9;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .summary ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .summary li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .summary strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .summary p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .news-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .news-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: high-quality;
+            filter: contrast(1.1) saturate(1.1);
+            transition: transform 0.3s ease;
+        }
+        .news-image:hover {
+            transform: scale(1.02);
+        }
+        .news-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .news-title {
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .news-title a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        .news-title a:hover {
+            color: #3498db;
+        }
+        .news-source {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .news-date {
+            color: #95a5a6;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        .news-snippet {
+            color: #34495e;
+            line-height: 1.5;
+        }
+        .no-news {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 40px;
+        }
+        /* Image quality improvements */
+        .news-image {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        /* Better image rendering for high DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .news-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+    </style>
+    <script>
+        // Image quality enhancement script
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.news-image');
+            images.forEach(img => {
+                // Force high quality rendering
+                img.style.imageRendering = 'high-quality';
+                img.style.imageRendering = '-webkit-optimize-contrast';
+                
+                // Add error handling for better fallback
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const placeholder = this.nextElementSibling;
+                    if (placeholder && placeholder.classList.contains('news-image-placeholder')) {
+                        placeholder.style.display = 'flex';
+                    }
+                });
+                
+                // Add load event for smooth transition
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>📰 Latest News: artificial intelligence</h1>
+        <div class="timestamp">Last updated: 2026-02-23 06:32:18</div>
+        
+        <div class="summary">
+            <h2>News Analysis</h2>
+            <p>The artificial intelligence landscape is rapidly transitioning from experimental chatbots to tangible global integration across diplomacy, fine arts, and public safety. While international leaders convene to establish governance standards, the technology is simultaneously redefining enterprise productivity and challenging our fundamental perception of digital authenticity.</p>
+
+<h3>Key Developments:</h3>
+<ul>
+    <li><strong>Global Governance and Diplomacy:</strong> India is currently hosting a high-stakes AI summit featuring <strong>20 world leaders</strong> and top tech CEOs, signaling an urgent move toward centralized international policy and infrastructure.</li>
+    <li><strong>The Shift to Agentic AI:</strong> Enterprise technology is evolving toward autonomy; Databricks reports that AI agents now build <strong>80% of enterprise databases</strong>, marking a transition from simple LLMs to "Large Action Models" that execute complex tasks.</li>
+    <li><strong>Public Safety and Creative Markets:</strong> Specialized AI applications are yielding high-impact results, from <strong>predicting wildfire risks</strong> in Texas to AI-generated artwork now selling for over <strong>$1 million</strong> in prestigious global museums.</li>
+</ul>
+
+<h3>Key Insights:</h3>
+<p>The most pressing challenge in the current AI cycle is the <strong>"Credibility Gap."</strong> New research suggests AI-generated misinformation is often perceived as <strong>more credible</strong> than human-written content, prompting industry giants like Sony to develop forensic tools to trace the origins of AI-generated media. For businesses and investors, the focus is shifting away from general-purpose tools toward <strong>sector-specific solutions</strong> in healthcare and infrastructure, where the technology provides measurable ROI and risk mitigation. As "Agentic AI" becomes the new standard, the primary economic driver will be the ability of autonomous systems to handle <strong>end-to-end enterprise workflows</strong> rather than just content generation.</p>
+        </div>
+        
+        <h2>📋 Recent Articles</h2>
+        <div class="news-grid">
+
+            <div class="news-item">
+                <img src="news_images/AI artificial intelligence_2d389198.jpg" 
+                        alt="AI (artificial intelligence)" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Guardian</div>
+                <div class="news-title">
+                    <a href="https://www.theguardian.com/technology/artificialintelligenceai" target="_blank">AI (artificial intelligence)</a>
+                </div>
+                <div class="news-source">Source: The Guardian</div>
+                <div class="news-date">Date: 6 hours ago</div>
+                <div class="news-snippet">Latest news, sport, business, comment, analysis and reviews from the Guardian, the world's leading liberal voice.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/AI artist Refik Anadol uses massive datasets and A_8d68cc91.jpg" 
+                        alt="AI artist Refik Anadol uses massive datasets and AI to create immersive works shown around the world" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 CBS News</div>
+                <div class="news-title">
+                    <a href="https://www.cbsnews.com/news/artificial-intelligence-creating-art-refik-anadol-60-minutes/" target="_blank">AI artist Refik Anadol uses massive datasets and AI to create immersive works shown around the world</a>
+                </div>
+                <div class="news-source">Source: CBS News</div>
+                <div class="news-date">Date: 7 hours ago</div>
+                <div class="news-snippet">Art made with AI is selling for over $1 million and being embraced by some of the world's most prestigious museums, but critics question if it really...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Prediction This Artificial Intelligence AI Stock W_20a9e869.jpg" 
+                        alt="Prediction: This Artificial Intelligence (AI) Stock Will Outperform Alphabet in 2026" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Motley Fool</div>
+                <div class="news-title">
+                    <a href="https://www.fool.com/investing/2026/02/22/prediction-this-artificial-intelligence-ai-stock-w/" target="_blank">Prediction: This Artificial Intelligence (AI) Stock Will Outperform Alphabet in 2026</a>
+                </div>
+                <div class="news-source">Source: The Motley Fool</div>
+                <div class="news-date">Date: 8 hours ago</div>
+                <div class="news-snippet">Artificial intelligence (AI) has been a major catalyst for Alphabet over the past couple of years, as the company's chatbot, Google Gemini,...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="https://www.eurasiareview.com/wp-content/uploads/2026/02/a-235-390x205.jpg" 
+                        alt="Artificial Intelligence Makes Fake News More Credible" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Eurasia Review</div>
+                <div class="news-title">
+                    <a href="https://www.eurasiareview.com/23022026-artificial-intelligence-makes-fake-news-more-credible/" target="_blank">Artificial Intelligence Makes Fake News More Credible</a>
+                </div>
+                <div class="news-source">Source: Eurasia Review</div>
+                <div class="news-date">Date: 7 hours ago</div>
+                <div class="news-snippet">By Lisbet Jære. Fake news generated by AI is often perceived as more credible than texts written by humans. That worries linguist Silje Susanne Alvestad.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/India hosts a high-stakes AI summit drawing 20 lea_30369c7f.txt" 
+                        alt="India hosts a high-stakes AI summit, drawing 20 leaders and top tech CEOs" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 AP News</div>
+                <div class="news-title">
+                    <a href="https://apnews.com/article/india-ai-modi-macron-lula-f32aa15263349dadad1840dadc75ca83" target="_blank">India hosts a high-stakes AI summit, drawing 20 leaders and top tech CEOs</a>
+                </div>
+                <div class="news-source">Source: AP News</div>
+                <div class="news-date">Date: 5 hours ago</div>
+                <div class="news-snippet">3 of 5 |. A scooterist drives past a banners of AI-Summit with Indian Prime Minister Narendra Modi stands on a road leading to summit venue in New Delhi,...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Travis County pioneers AI tool to predict wildfire_749d2277.jpg" 
+                        alt="Travis County pioneers AI tool to predict wildfire risk" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 KVUE</div>
+                <div class="news-title">
+                    <a href="https://www.kvue.com/article/news/local/travis-county-texas-ai-tool-predict-wildfire-risk/269-aa2de3ed-4d85-40a9-8df5-035f4d72cafe" target="_blank">Travis County pioneers AI tool to predict wildfire risk</a>
+                </div>
+                <div class="news-source">Source: KVUE</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">AUSTIN, Texas — Central Texas fire stations are teaming up with an Australian-based artificial intelligence company, using new technology to predict where...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Latest Agentic AI News Today  Trends Predictions  _0b8d7cbf.jpg" 
+                        alt="Latest Agentic AI News Today | Trends, Predictions, & Analysis" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Forbes</div>
+                <div class="news-title">
+                    <a href="https://www.forbes.com/topics/agentic-ai/" target="_blank">Latest Agentic AI News Today | Trends, Predictions, & Analysis</a>
+                </div>
+                <div class="news-source">Source: Forbes</div>
+                <div class="news-date">Date: 17 hours ago</div>
+                <div class="news-snippet">Sources · Genesys Shifts Enterprise CX Strategy From LLMs To Large Action Models · Databricks Says AI Agents Now Build 80% Of Enterprise Databases · Cisco Bets...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/United States Artificial Intelligence in Healthcar_429b9d46.jpg" 
+                        alt="United States Artificial Intelligence in Healthcare Market" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 openPR.com</div>
+                <div class="news-title">
+                    <a href="https://www.openpr.com/news/4400405/united-states-artificial-intelligence-in-healthcare-market" target="_blank">United States Artificial Intelligence in Healthcare Market</a>
+                </div>
+                <div class="news-source">Source: openPR.com</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">Press release - IMARC Group - United States Artificial Intelligence in Healthcare Market Size, Share, Industry Trends, Growth Factors and Forecast to 2033...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Sony develops technology to trace origin of AI-mad_2267ee45.jpg" 
+                        alt="Sony develops technology to trace origin of AI-made music" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Japan Wire by KYODO NEWS</div>
+                <div class="news-title">
+                    <a href="https://english.kyodonews.net/articles/-/71035" target="_blank">Sony develops technology to trace origin of AI-made music</a>
+                </div>
+                <div class="news-source">Source: Japan Wire by KYODO NEWS</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">Sony Group Corp. has developed technology to identify the original source of music generated by artificial intelligence in a bid to protect...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Extra Palantirs Shyam Sankar On The Lies Being Tol_98419f08.png" 
+                        alt="Extra: Palantir’s Shyam Sankar On The ‘Lies’ Being Told About AI" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 FOX News Radio</div>
+                <div class="news-title">
+                    <a href="https://radio.foxnews.com/2026/02/22/extra-palantirs-shyam-sankar-on-the-lies-being-told-about-ai/" target="_blank">Extra: Palantir’s Shyam Sankar On The ‘Lies’ Being Told About AI</a>
+                </div>
+                <div class="news-source">Source: FOX News Radio</div>
+                <div class="news-date">Date: 7 hours ago</div>
+                <div class="news-snippet">Artificial intelligence is developing at a breakneck pace, transforming industries across the globe. But the reaction remains mixed.</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
