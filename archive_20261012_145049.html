@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest News: artificial intelligence</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .summary h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+        }
+        .summary h2::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .summary h3 {
+            color: #2980b9;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .summary ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .summary li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .summary strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .summary p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .news-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .news-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: high-quality;
+            filter: contrast(1.1) saturate(1.1);
+            transition: transform 0.3s ease;
+        }
+        .news-image:hover {
+            transform: scale(1.02);
+        }
+        .news-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .news-title {
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .news-title a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        .news-title a:hover {
+            color: #3498db;
+        }
+        .news-source {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .news-date {
+            color: #95a5a6;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        .news-snippet {
+            color: #34495e;
+            line-height: 1.5;
+        }
+        .no-news {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 40px;
+        }
+        /* Image quality improvements */
+        .news-image {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        /* Better image rendering for high DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .news-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+    </style>
+    <script>
+        // Image quality enhancement script
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.news-image');
+            images.forEach(img => {
+                // Force high quality rendering
+                img.style.imageRendering = 'high-quality';
+                img.style.imageRendering = '-webkit-optimize-contrast';
+                
+                // Add error handling for better fallback
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const placeholder = this.nextElementSibling;
+                    if (placeholder && placeholder.classList.contains('news-image-placeholder')) {
+                        placeholder.style.display = 'flex';
+                    }
+                });
+                
+                // Add load event for smooth transition
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>📰 Latest News: artificial intelligence</h1>
+        <div class="timestamp">Last updated: 2026-10-12 14:49:50</div>
+        
+        <div class="summary">
+            <h2>News Analysis</h2>
+            Summary generation failed. Found 10 articles about artificial intelligence. Error: Invalid argument provided to Gemini: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+        </div>
+        
+        <h2>📋 Recent Articles</h2>
+        <div class="news-grid">
+
+            <div class="news-item">
+                <img src="news_images/Virginia teachers balance AI innovation with stude_d1bee4bf.jpg" 
+                        alt="Virginia teachers balance AI innovation with student creativity amid rising academic pressure" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Virginia Mercury</div>
+                <div class="news-title">
+                    <a href="https://virginiamercury.com/2026/10/12/virginia-teachers-balance-ai-innovation-with-student-creativity-amid-rising-academic-pressure/" target="_blank">Virginia teachers balance AI innovation with student creativity amid rising academic pressure</a>
+                </div>
+                <div class="news-source">Source: Virginia Mercury</div>
+                <div class="news-date">Date: 5 hours ago</div>
+                <div class="news-snippet">Students face pressure to do well from family expectations, peer competition, college admissions, and a broader achievement-focused culture.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Canada Sets Up National Artificial Intelligence Co_2232f78a.jpeg" 
+                        alt="Canada Sets Up National Artificial Intelligence Council" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Advanced Manufacturing</div>
+                <div class="news-title">
+                    <a href="https://www.advancedmanufacturing.org/news-desk/canada/canada-sets-up-national-artificial-intelligence-council/article_e8bd867c-7126-4f20-b72d-3c2a2d1e4bf5.html" target="_blank">Canada Sets Up National Artificial Intelligence Council</a>
+                </div>
+                <div class="news-source">Source: Advanced Manufacturing</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">Canada's federal government has a plan to help ensure artificial intelligence is used in a safe way by all Canadians.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Coxs pro-human AI order directs state government t_f2b8afc3.jpg" 
+                        alt="Cox’s ‘pro-human AI’ order directs state government to use ‘responsible’ artificial intelligence" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 St. George News</div>
+                <div class="news-title">
+                    <a href="https://www.stgeorgeutah.com/news/cox-s-pro-human-ai-order-directs-state-government-to-use-responsible-artificial-intelligence/article_46286cec-5851-4de4-b6f3-856fa9577708.html" target="_blank">Cox’s ‘pro-human AI’ order directs state government to use ‘responsible’ artificial intelligence</a>
+                </div>
+                <div class="news-source">Source: St. George News</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">Utah Gov. Spencer Cox on Tuesday signed an executive order meant to “promote responsible AI use within government” by using “pro-human” principles when...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/UK given access to safety-test latest AI models mi_fd7d6284.jpg" 
+                        alt="UK given access to safety-test latest AI models, minister says" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Reuters</div>
+                <div class="news-title">
+                    <a href="https://www.reuters.com/legal/litigation/uk-given-access-safety-test-latest-ai-models-minister-says-2026-10-12/" target="_blank">UK given access to safety-test latest AI models, minister says</a>
+                </div>
+                <div class="news-source">Source: Reuters</div>
+                <div class="news-date">Date: 1 hour ago</div>
+                <div class="news-snippet">Britain's AI Security Institute has been given access to the latest advanced AI models and is working with the US government and major ​developers,...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Ondas and Palantir Launch Regna AI to Develop Sove_485bfadb.jpg" 
+                        alt="Ondas and Palantir Launch Regna AI to Develop Sovereign Artificial Intelligence for Defence Operations" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Yahoo Finance</div>
+                <div class="news-title">
+                    <a href="https://finance.yahoo.com/technology/ai/articles/ondas-palantir-launch-regna-ai-123251100.html" target="_blank">Ondas and Palantir Launch Regna AI to Develop Sovereign Artificial Intelligence for Defence Operations</a>
+                </div>
+                <div class="news-source">Source: Yahoo Finance</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">Ondas Inc. (NASDAQ:ONDS) and Palantir Technologies Inc. (NASDAQ:PLTR) have announced the establishment of Regna AI, a privately held company focused on...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/As US medical debt grows AI will be used more to c_9f0c87dc.jpg" 
+                        alt="As US medical debt grows, AI will be used more to collect it" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Guardian</div>
+                <div class="news-title">
+                    <a href="https://www.theguardian.com/us-news/2026/oct/12/ai-medical-debt-billing" target="_blank">As US medical debt grows, AI will be used more to collect it</a>
+                </div>
+                <div class="news-source">Source: The Guardian</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">The debt-collection ecosystem will change as AI takes notes in exam rooms, codes visits and sends billing messages.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Microsoft President Argues AI Less Regulated Than _dd697f1a.jpg" 
+                        alt="Microsoft President Argues AI Less Regulated Than Washing Machines" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 PYMNTS.com</div>
+                <div class="news-title">
+                    <a href="https://www.pymnts.com/news/artificial-intelligence/2026/microsoft-president-argues-ai-less-regulated-than-washing-machines/" target="_blank">Microsoft President Argues AI Less Regulated Than Washing Machines</a>
+                </div>
+                <div class="news-source">Source: PYMNTS.com</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">Microsoft's president says artificial intelligence now faces less regulatory oversight than appliances and dairy products.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/The Tragedy of AI Coding_d432a9fe.gif" 
+                        alt="The Tragedy of AI Coding" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Atlantic</div>
+                <div class="news-title">
+                    <a href="https://www.theatlantic.com/ideas/2026/10/ai-programming-big-tech-regulations/688960/" target="_blank">The Tragedy of AI Coding</a>
+                </div>
+                <div class="news-source">Source: The Atlantic</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">AI-assisted software development could have liberated programmers. Instead, it has become the latest way for Big Tech to confine us.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/The best on-farm use Ive found for artificial inte_f21a6ee1.jpg" 
+                        alt="The best on-farm use I've found for artificial intelligence" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Agweek</div>
+                <div class="news-title">
+                    <a href="https://www.agweek.com/opinion/columns/the-best-on-farm-use-ive-found-for-artificial-intelligence" target="_blank">The best on-farm use I've found for artificial intelligence</a>
+                </div>
+                <div class="news-source">Source: Agweek</div>
+                <div class="news-date">Date: 4 hours ago</div>
+                <div class="news-snippet">Running used equipment means encountering all sorts of problems, some of which need more information to solve. Jenny Schlecht explains how artificial...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Just 10 minutes of AI use may erode persistence on_90e3c6b1.jpeg" 
+                        alt="Just 10 minutes of AI use may erode persistence on hard tasks" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Tech Xplore</div>
+                <div class="news-title">
+                    <a href="https://techxplore.com/news/2026-10-minutes-ai-erode-persistence-hard.html" target="_blank">Just 10 minutes of AI use may erode persistence on hard tasks</a>
+                </div>
+                <div class="news-source">Source: Tech Xplore</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">Brian Christian has spent 20 years thinking about how artificial intelligence will change our minds and our world. His 2020 book "The Alignment Problem" has...</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
