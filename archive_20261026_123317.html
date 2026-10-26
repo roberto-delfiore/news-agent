@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest News: artificial intelligence</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .summary h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+        }
+        .summary h2::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .summary h3 {
+            color: #2980b9;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .summary ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .summary li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .summary strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .summary p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .news-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .news-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: high-quality;
+            filter: contrast(1.1) saturate(1.1);
+            transition: transform 0.3s ease;
+        }
+        .news-image:hover {
+            transform: scale(1.02);
+        }
+        .news-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .news-title {
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .news-title a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        .news-title a:hover {
+            color: #3498db;
+        }
+        .news-source {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .news-date {
+            color: #95a5a6;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        .news-snippet {
+            color: #34495e;
+            line-height: 1.5;
+        }
+        .no-news {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 40px;
+        }
+        /* Image quality improvements */
+        .news-image {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        /* Better image rendering for high DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .news-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+    </style>
+    <script>
+        // Image quality enhancement script
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.news-image');
+            images.forEach(img => {
+                // Force high quality rendering
+                img.style.imageRendering = 'high-quality';
+                img.style.imageRendering = '-webkit-optimize-contrast';
+                
+                // Add error handling for better fallback
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const placeholder = this.nextElementSibling;
+                    if (placeholder && placeholder.classList.contains('news-image-placeholder')) {
+                        placeholder.style.display = 'flex';
+                    }
+                });
+                
+                // Add load event for smooth transition
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>📰 Latest News: artificial intelligence</h1>
+        <div class="timestamp">Last updated: 2026-10-26 12:31:28</div>
+        
+        <div class="summary">
+            <h2>News Analysis</h2>
+            Summary generation failed. Found 10 articles about artificial intelligence. Error: Invalid argument provided to Gemini: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+        </div>
+        
+        <h2>📋 Recent Articles</h2>
+        <div class="news-grid">
+
+            <div class="news-item">
+                <img src="news_images/School board candidates view AI with trepidation_a699dbe1.jpg" 
+                        alt="School board candidates view AI with trepidation" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Maryland Matters</div>
+                <div class="news-title">
+                    <a href="https://marylandmatters.org/2026/10/26/school-board-candidates-view-ai-with-trepidation/" target="_blank">School board candidates view AI with trepidation</a>
+                </div>
+                <div class="news-source">Source: Maryland Matters</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">More than 135 candidates are running in Maryland's school board elections, and those who win will face a significant challenge: overseeing the...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Brown student maps the hidden global labor powerin_72f6fdde.jpg" 
+                        alt="Brown student maps the hidden global labor powering AI" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Brown University</div>
+                <div class="news-title">
+                    <a href="https://www.brown.edu/news/2026-10-26/ai-data-workers" target="_blank">Brown student maps the hidden global labor powering AI</a>
+                </div>
+                <div class="news-source">Source: Brown University</div>
+                <div class="news-date">Date: 1 hour ago</div>
+                <div class="news-snippet">Cunyan Ma's interactive tool exposes the power structure that extracts low-wage labor from data workers in the Global South to make everyday AI algorithms...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Fake News and Artificial Intelligence epresspack P_b53039bf.png" 
+                        alt="Fake News and Artificial Intelligence: epresspack Puts Newsrooms at the Heart of New Reputation Challenges" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Yahoo Finance</div>
+                <div class="news-title">
+                    <a href="https://finance.yahoo.com/technology/ai/articles/fake-news-artificial-intelligence-epresspack-100000264.html" target="_blank">Fake News and Artificial Intelligence: epresspack Puts Newsrooms at the Heart of New Reputation Challenges</a>
+                </div>
+                <div class="news-source">Source: Yahoo Finance</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">In the age of artificial intelligence and the proliferation of fake news, companies face a new challenge: ensuring that their official, verified information...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/OpenAI Executive Dean Ball Rejects Silent Consensu_974f7162.jpg" 
+                        alt="OpenAI Executive Dean Ball Rejects “Silent Consensus” That AI Will Sideline Humans" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Harvard Crimson</div>
+                <div class="news-title">
+                    <a href="https://www.thecrimson.com/article/2026/10/26/openai-exec-lecture/" target="_blank">OpenAI Executive Dean Ball Rejects “Silent Consensus” That AI Will Sideline Humans</a>
+                </div>
+                <div class="news-source">Source: The Harvard Crimson</div>
+                <div class="news-date">Date: 31 minutes ago</div>
+                <div class="news-snippet">Dean W. Ball, an OpenAI executive, urged attendees at a Thursday lecture to reject what he called a “silent consensus” in the artificial intelligence...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Texas schools weigh how to use AI without hurting _83fc6891.jpg" 
+                        alt="Texas schools weigh how to use AI without hurting learning" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Dallas News</div>
+                <div class="news-title">
+                    <a href="https://www.dallasnews.com/news/education/article/texas-schools-ai-learning-22491411.php" target="_blank">Texas schools weigh how to use AI without hurting learning</a>
+                </div>
+                <div class="news-source">Source: Dallas News</div>
+                <div class="news-date">Date: 1 hour ago</div>
+                <div class="news-snippet">Texas school districts are setting AI rules as they try to boost learning, build digital literacy and stop shortcuts in class.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Students and artificial intelligence industry lead_ca2c9ba6.jpg" 
+                        alt="Students and artificial intelligence industry leaders connect at inaugural Michigan AI Business Conference" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Michigan Daily</div>
+                <div class="news-title">
+                    <a href="https://www.michigandaily.com/news/campus-life/students-and-artificial-intelligence-industry-leaders-connect-at-inaugural-michigan-ai-business-conference/" target="_blank">Students and artificial intelligence industry leaders connect at inaugural Michigan AI Business Conference</a>
+                </div>
+                <div class="news-source">Source: The Michigan Daily</div>
+                <div class="news-date">Date: 7 hours ago</div>
+                <div class="news-snippet">More than 250 students, professors and industry leaders gathered Friday for the first Michigan Artificial Intelligence Business Conference at the Ross...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Why Musk Is Predicting Guppy-Level Death for Score_04805759.jpg" 
+                        alt="Why Musk Is Predicting ‘Guppy-Level Death’ for Scores of A.I. Companies" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The New York Times</div>
+                <div class="news-title">
+                    <a href="https://www.nytimes.com/2026/10/26/business/dealbook/musk-ai-credit-shakeout.html" target="_blank">Why Musk Is Predicting ‘Guppy-Level Death’ for Scores of A.I. Companies</a>
+                </div>
+                <div class="news-source">Source: The New York Times</div>
+                <div class="news-date">Date: 20 minutes ago</div>
+                <div class="news-snippet">Elon Musk sees many artificial-intelligence infrastructure companies being shut out of the debt market, a warning that could weigh on markets.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Half Moon Bay plans for AI safeguard policy_a201866c.jpg" 
+                        alt="Half Moon Bay plans for AI safeguard policy" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 San Mateo Daily Journal</div>
+                <div class="news-title">
+                    <a href="https://www.smdailyjournal.com/news/local/half-moon-bay-plans-for-ai-safeguard-policy/article_d39d1e95-8bee-4ccd-ab73-34eb6612afa6.html" target="_blank">Half Moon Bay plans for AI safeguard policy</a>
+                </div>
+                <div class="news-source">Source: San Mateo Daily Journal</div>
+                <div class="news-date">Date: 31 minutes ago</div>
+                <div class="news-snippet">Half Moon Bay is working on developing an artificial intelligence policy that centers on safeguards and human-centered design and review that will allow for...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Great Lakes AI Week Coming to University of Toledo_a87bd681.jpg" 
+                        alt="Great Lakes AI Week Coming to University of Toledo" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 UToledo News</div>
+                <div class="news-title">
+                    <a href="https://news.utoledo.edu/index.php/10_26_2026/great-lakes-ai-week-coming-to-university-of-toledo" target="_blank">Great Lakes AI Week Coming to University of Toledo</a>
+                </div>
+                <div class="news-source">Source: UToledo News</div>
+                <div class="news-date">Date: 5 hours ago</div>
+                <div class="news-snippet">Great Lakes AI Week 2026 is coming to Northwest Ohio Nov. 10–12, with programming split between Bowling Green State University and The University of Toledo.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/AI for development What AI use means in practice_a57feaf8.jpg" 
+                        alt="AI for development: What AI use means in practice" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Devex</div>
+                <div class="news-title">
+                    <a href="https://www.devex.com/news/ai-for-development-what-ai-use-means-in-practice-113710" target="_blank">AI for development: What AI use means in practice</a>
+                </div>
+                <div class="news-source">Source: Devex</div>
+                <div class="news-date">Date: 1 hour ago</div>
+                <div class="news-snippet">The conversation around artificial intelligence in global development is shifting. From an initial focus on getting organizations to experiment with AI and...</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
