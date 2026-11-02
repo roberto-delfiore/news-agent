@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest News: artificial intelligence</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .timestamp {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .summary {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .summary h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+        }
+        .summary h2::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .summary h3 {
+            color: #2980b9;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .summary ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .summary li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .summary strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .summary p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .news-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .news-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            image-rendering: high-quality;
+            filter: contrast(1.1) saturate(1.1);
+            transition: transform 0.3s ease;
+        }
+        .news-image:hover {
+            transform: scale(1.02);
+        }
+        .news-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .news-title {
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .news-title a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        .news-title a:hover {
+            color: #3498db;
+        }
+        .news-source {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .news-date {
+            color: #95a5a6;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+        .news-snippet {
+            color: #34495e;
+            line-height: 1.5;
+        }
+        .no-news {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 40px;
+        }
+        /* Image quality improvements */
+        .news-image {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+        /* Better image rendering for high DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .news-image {
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+            }
+        }
+    </style>
+    <script>
+        // Image quality enhancement script
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.news-image');
+            images.forEach(img => {
+                // Force high quality rendering
+                img.style.imageRendering = 'high-quality';
+                img.style.imageRendering = '-webkit-optimize-contrast';
+                
+                // Add error handling for better fallback
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const placeholder = this.nextElementSibling;
+                    if (placeholder && placeholder.classList.contains('news-image-placeholder')) {
+                        placeholder.style.display = 'flex';
+                    }
+                });
+                
+                // Add load event for smooth transition
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>📰 Latest News: artificial intelligence</h1>
+        <div class="timestamp">Last updated: 2026-11-02 15:06:09</div>
+        
+        <div class="summary">
+            <h2>News Analysis</h2>
+            Summary generation failed. Found 10 articles about artificial intelligence. Error: Invalid argument provided to Gemini: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+        </div>
+        
+        <h2>📋 Recent Articles</h2>
+        <div class="news-grid">
+
+            <div class="news-item">
+                <img src="news_images/Artificial intelligence use doubles among rural Ne_68017c93.png" 
+                        alt="Artificial intelligence use doubles among rural Nebraskans" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Nebraska Public Media</div>
+                <div class="news-title">
+                    <a href="https://nebraskapublicmedia.org/en/news/news-articles/artificial-intelligence-use-doubles-among-rural-nebraskans/" target="_blank">Artificial intelligence use doubles among rural Nebraskans</a>
+                </div>
+                <div class="news-source">Source: Nebraska Public Media</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">Results from the 2026 Nebraska Rural Poll show that the number of Nebraskans who have used generative AI tools has more than doubled in just the past two...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Lets Talk Warren County Artificial Intelligence AI_b279da3a.png" 
+                        alt="Let’s Talk Warren County: Artificial Intelligence (AI) announced" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Warren Record</div>
+                <div class="news-title">
+                    <a href="https://www.warrenrecord.com/news/article_7a519246-7935-46df-8200-9cd31251b043.html" target="_blank">Let’s Talk Warren County: Artificial Intelligence (AI) announced</a>
+                </div>
+                <div class="news-source">Source: The Warren Record</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">As part of Warren County's ongoing “Let's Talk Warren County” series, Warren County is hosting a special community event, Let's Talk AI, on Tuesday, Nov.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Communication professionals discuss AIs role in cr_98dd0f86.png" 
+                        alt="Communication professionals discuss AI’s role in creative work" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 PantherNOW</div>
+                <div class="news-title">
+                    <a href="https://panthernow.com/2026/11/02/communication-professionals-discuss-ais-role-in-creative-work/" target="_blank">Communication professionals discuss AI’s role in creative work</a>
+                </div>
+                <div class="news-source">Source: PantherNOW</div>
+                <div class="news-date">Date: 6 minutes ago</div>
+                <div class="news-snippet">Kendall Moffett | Staff Writer. Communication professionals discussed how to use artificial intelligence in storytelling and creative work while maintaining...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Wearable devices  AI analysis may predict high blo_bebb883b.jpg" 
+                        alt="Wearable devices + AI analysis may predict high blood pressure crisis up to 3 days early" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 www.heart.org</div>
+                <div class="news-title">
+                    <a href="https://newsroom.heart.org/news/wearable-devices-+-ai-analysis-may-predict-high-blood-pressure-crisis-up-to-3-days-early" target="_blank">Wearable devices + AI analysis may predict high blood pressure crisis up to 3 days early</a>
+                </div>
+                <div class="news-source">Source: www.heart.org</div>
+                <div class="news-date">Date: 2 hours ago</div>
+                <div class="news-snippet">Research Highlights: Using artificial intelligence (AI) to analyze patterns from a portable cuff-based blood pressure monitor and a wearable fitness tracker...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Artificial Intelligence is helping scientists list_0d0be6d2.png" 
+                        alt="Artificial Intelligence is helping scientists listen in on the secret life of bats" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 KYMA</div>
+                <div class="news-title">
+                    <a href="https://kyma.com/news/national-world/2026/11/02/artificial-intelligence-is-helping-scientists-listen-in-on-the-secret-life-of-bats/" target="_blank">Artificial Intelligence is helping scientists listen in on the secret life of bats</a>
+                </div>
+                <div class="news-source">Source: KYMA</div>
+                <div class="news-date">Date: 6 minutes ago</div>
+                <div class="news-snippet">LONDON (CBS, KYMA) - Artificial intelligence is helping scientists listen in on the secret life of bats. Researchers in the UK are using Ai to analyze...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/AI Stocks Face Possible Ballot-Box Backlash As Fin_9336af59.jpg" 
+                        alt="AI Stocks Face Possible Ballot-Box Backlash As Financing Fears Mount" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Investor's Business Daily</div>
+                <div class="news-title">
+                    <a href="https://www.investors.com/news/technology/ai-stocks-artificial-intelligence-stocks-news-2november2026/" target="_blank">AI Stocks Face Possible Ballot-Box Backlash As Financing Fears Mount</a>
+                </div>
+                <div class="news-source">Source: Investor's Business Daily</div>
+                <div class="news-date">Date: 1 hour ago</div>
+                <div class="news-snippet">Artificial intelligence stocks are taking a beating heading into the U.S. midterm elections. Just take a look at all the AI stocks in the red for October on...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Students for Human Intelligence platforms AI conce_24c33e01.jpg" 
+                        alt="Students for Human Intelligence platforms AI concerns for Mizzou" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 Columbia Missourian</div>
+                <div class="news-title">
+                    <a href="https://www.columbiamissourian.com/news/higher_education/students-for-human-intelligence-platforms-ai-concerns-for-mizzou/article_a14cbf38-bd1f-4de3-9e99-155d8196edfe.html" target="_blank">Students for Human Intelligence platforms AI concerns for Mizzou</a>
+                </div>
+                <div class="news-source">Source: Columbia Missourian</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">With the recent growth of artificial intelligence use on the University of Missouri campus through the introduction of the AI Use Scale and Show-Me AI,...</div>
+            </div>
+
+            <div class="news-item">
+                <img src="news_images/Want Students to Think With AI Raise the Stakes_92c88607.jpg" 
+                        alt="Want Students to Think With AI? Raise the Stakes." 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 EdSurge</div>
+                <div class="news-title">
+                    <a href="https://www.edsurge.com/news/want-students-to-think-with-ai-raise-the-stakes" target="_blank">Want Students to Think With AI? Raise the Stakes.</a>
+                </div>
+                <div class="news-source">Source: EdSurge</div>
+                <div class="news-date">Date: 3 hours ago</div>
+                <div class="news-snippet">For two years, students in a randomized study had an artificial intelligence (AI) tutor one click away. Of those students, 96% tried it at least once.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="https://www.washingtonpost.com/wp-apps/imrs.php?src=https://cloudfront-us-east-1.images.arcpublishing.com/wapo/NN33MR6SFRFJBGZMX7CM745ZFM.jpg&w=1440&impolicy=high_res" 
+                        alt="Why mandating AI use in the workplace can backfire" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The Washington Post</div>
+                <div class="news-title">
+                    <a href="https://www.washingtonpost.com/business/2026/11/02/why-mandating-ai-use-workplace-can-backfire/" target="_blank">Why mandating AI use in the workplace can backfire</a>
+                </div>
+                <div class="news-source">Source: The Washington Post</div>
+                <div class="news-date">Date: 13 minutes ago</div>
+                <div class="news-snippet">AI literacy is quickly becoming a required skill for many types of jobs. Some workplaces are holding mandatory training sessions in artificial intelligence.</div>
+            </div>
+
+            <div class="news-item">
+                <img src="https://riverreporter.com/uploads/original/20260911-144300-f2d-PK-newspaper_stock-2026%20(22).JPG" 
+                        alt="National Newspaper Association joins News/Media Alliance to push back against Open AI" 
+                        class="news-image" 
+                        loading="lazy"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        onload="this.style.opacity='1';"
+                        style="opacity:0; transition: opacity 0.3s ease;">
+                <div class="news-image-placeholder" style="display:none;">📰 The River Reporter</div>
+                <div class="news-title">
+                    <a href="https://riverreporter.com/stories/national-newspaper-association-joins-newsmedia-alliance-to-push-back-against-open-ai,284162" target="_blank">National Newspaper Association joins News/Media Alliance to push back against Open AI</a>
+                </div>
+                <div class="news-source">Source: The River Reporter</div>
+                <div class="news-date">Date: 15 minutes ago</div>
+                <div class="news-snippet">NATIONWIDE — Federal courts must build a firewall between artificial intelligence programs and local news organizations, National Newspaper Association...</div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
